@@ -25,6 +25,9 @@ app.register_blueprint(task_bp)
 def home():
     return render_template('login.html')
 
+@app.route('/test')
+def test():
+    return "App is working!"
 
 # 📝 SIGNUP PAGE
 @app.route('/signup-page')
