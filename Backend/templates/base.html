@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2>TaskFlow</h2>
+        <nav>
+            <a class="active" href="/">Dashboard</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="content">
+        
+        <!-- Header -->
+        <header class="header">
+            <h1>Dashboard</h1>
+            <p>Welcome back 👋</p>
+        </header>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+    </div>
+</div>
+
+</body>
+</html>

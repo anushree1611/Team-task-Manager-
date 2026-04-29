@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- ===== Assign Task (Admin) ===== -->
+<div class="assign-card">
+    <h2>Assign Task (Admin)</h2>
+
+    <form class="assign-form" method="POST" action="/tasks">
+        <input type="text" name="title" placeholder="Task Title" required>
+        <input type="number" name="project_id" placeholder="Project ID" required>
+        <input type="number" name="assigned_to" placeholder="Assign To (User ID)" required>
+        <input type="date" name="due_date" required>
+
+        <!-- TEMP admin id -->
+        <input type="hidden" name="created_by" value="1">
+
+        <button type="submit">Assign Task</button>
+    </form>
+</div>
+
+
+<!-- ===== Dashboard Stats ===== -->
+<div class="cards">
+    <div class="card blue">
+        <h3>Total Tasks</h3>
+        <p>{{ total }}</p>
+    </div>
+
+    <div class="card green">
+        <h3>Completed</h3>
+        <p>{{ completed }}</p>
+    </div>
+
+    <div class="card red">
+        <h3>Overdue</h3>
+        <p>{{ overdue }}</p>
+    </div>
+</div>
+
+
+<!-- ===== Task Table ===== -->
+<div class="table-card">
+    <h2>Task List</h2>
+
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Action</th>
+        </tr>
+
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.title }}</td>
+
+            <td>
+                <span class="badge {{ task.status }}">
+                    {{ task.status }}
+                </span>
+            </td>
+
+            <td>{{ task.due_date }}</td>
+
+            <td>
+                <!-- TEMP member id -->
+                <form method="POST" action="/tasks/{{ task.id }}">
+                    <input type="hidden" name="status" value="done">
+                    <input type="hidden" name="user_id" value="2">
+
+                    <button class="done-btn" type="submit">
+                        Mark Done
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
