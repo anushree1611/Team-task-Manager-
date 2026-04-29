@@ -12,6 +12,10 @@ app.config.from_object(Config)
 
 db.init_app(app)
 
+# ✅ CREATE DATABASE TABLES (IMPORTANT)
+with app.app_context():
+    db.create_all()
+
 app.register_blueprint(auth_bp)
 app.register_blueprint(project_bp)
 app.register_blueprint(task_bp)
@@ -28,7 +32,7 @@ def signup_page():
     return render_template('signup.html')
 
 
-# 📊 DASHBOARD (IMPORTANT CHANGE)
+# 📊 DASHBOARD
 @app.route('/dashboard')
 def dashboard():
     tasks = Task.query.all()
@@ -49,5 +53,8 @@ def dashboard():
     )
 
 
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
