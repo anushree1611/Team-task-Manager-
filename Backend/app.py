@@ -12,9 +12,7 @@ app.config.from_object(Config)
 
 db.init_app(app)
 
-# ✅ CREATE DATABASE TABLES (IMPORTANT)
-with app.app_context():
-    db.create_all()
+
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(project_bp)

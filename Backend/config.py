@@ -1,14 +1,15 @@
 import os
 
 class Config:
-    # Secret key for session security
     SECRET_KEY = os.getenv("SECRET_KEY", "dev_secret_key")
 
-    # Database configuration (Railway PostgreSQL OR fallback SQLite)
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL",
-        "sqlite:///test.db"
-    ).replace("postgres://", "postgresql://", 1)
+    db_url = os.getenv("DATABASE_URL", "sqlite:///test.db")
+    # Railway gives postgres:// — SQLAlchemy needs postgresql://
+    if db_url.startswith("postgres://"):
+        db_url = db_url.replace("postgres://", "postgresql://", 1)
 
-    # Disable tracking modifications (recommended)
+    SQLALCHEMY_DATABASE_URI = db_url
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_pre_ping": True,  # avoids hanging connections
+    }
