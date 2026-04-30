@@ -21,7 +21,7 @@ app.register_blueprint(task_bp)
 # 🔐 LOGIN PAGE (homepage)
 @app.route('/')
 def home():
-    return render_template('login.html')
+    return "App is live"
 
 @app.route('/test')
 def test():
